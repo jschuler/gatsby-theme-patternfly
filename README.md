@@ -1,58 +1,88 @@
-# Gatsby Theme Jam Submission Example
+<Text>
 
-This repo is an example and potential starting point for theme creators.
+# Getting started
 
-It includes:
-- a bare-bones theme (located in `theme/`) that includes basic setup
-- a demo site (located in `demo/`) that installs the theme
-- a Yarn workspaces configuration so the theme and demo can be worked on simultaneously
+This project is a [Gatsby theme](https://www.gatsbyjs.org/docs/themes/what-are-gatsby-themes/) that incorporates the [PatternFly](https://www.patternfly.org/v4/) design system. Using the theme makes it easy to create a gatsby site that is responsive and accessible.
 
-## How to use this repo
+## First steps
 
-**NOTE:** Make sure to replace `USERNAME` with your GitHub username and `THEMENAME` with your theme name.
+1. **Create your site** – use the gatsby CLI to bootstrap your site
 
-1.  Fork this repo.
+  ```sh
+  gatsby new my-patternfly-site
+  ```
 
-2.  Rename the forked repo `gatsby-theme-THEMENAME`. (Make sure to replace `THEMENAME` with your chosen name.)
+1. **Add the PatternFly theme**
+  ```
+  yarn add gatsby-theme-patternfly
+  ```
+  or
+  ```
+  npm install gatsby-theme-patternfly
+  ```
 
-3.  Get the theme set up locally.
-    ```sh
-    # clone the repo
-    git clone git@github.com:USERNAME/gatsby-theme-THEMENAME.git
+1. **Edit gatsby-config.js**
+  ```
+  module.exports = {
+    // add plugin gatsby-theme-patternfly
+    plugins: ["gatsby-theme-patternfly"],
+  }
+  ```
 
-    # move into the directory
-    cd gatsby-theme-THEMENAME
+1. **Add navigation yaml files**
+  ```
+  cd src/data # create the data directory if not already there
+  ```
+  - Create a side-nav.yml file under `src/data`. Example contents:
+  ```
+    - rootPath: /
+      nav:
+      - title: About
+        path: /about
+      - title: Components
+        path: /components
+        pages:
+        - title: Body
+          path: /components/body
+        - title: Headings
+          path: /components/headings
 
-    # install dependencies
-    yarn
-    ```
+    - rootPath: /contributions
+      nav:
+      - title: How to contribute
+        path: /contributions/how-to-contribute
+      - title: Community
+        path: /contributions/community
+  ```
+  The rootPath ensures that the side nav only appears on the relevant page
 
-4.  Update `theme/package.json` with your info.
-    ```diff
-      {
-    +   "name": "gatsby-theme-THEMENAME",
-    +   "author": "Your Name <name@example.com>",
-        "repository": {
-          "type": "git",
-    +     "url": "https://github.com/USERNAME/gatsby-theme-THEMENAME.git"
-        },
-    ```
+  - Create a top-nav.yml file under `src/data`. Example contents:
+  ```
+    - title: Contributions
+      path: /contributions/how-to-contribute
+  ```
+  This creates a new top nav entry for Contributions
 
-5.  Start the demo site.
-    ```sh
-    yarn workspace demo develop
-    ```
+1. **Create corresponding mdx files that match the path given in the yaml files**
 
-    The demo will start at http://localhost:8000
+  For example, for the path `/components/body` in the yaml file, create the file `src/pages/components/body.mdx`.
 
-    **NOTE:** If you’re new to Yarn workspaces, check out [this post](https://www.gatsbyjs.org/blog/2019-05-22-setting-up-yarn-workspaces-for-theme-development/) for details.
+1. **Start developing** – navigate into your directory with `cd my-patternfly-site`.
 
-6.  Start editing the theme! The demo site is configured to use the local theme, so any changes you make to the local `theme` directory will be reflected on the demo site for easy local development.
+  Start it up with `gatsby develop`
 
-7.  Follow the [submission checklist](./theme/README.md#submission-checklist) to make sure your theme qualifies to win!
+1. **Make some changes!** – open [localhost:8000](//localhost:8000) in your browser to see your site running.
 
-8.  [Submit your theme](https://themejam.gatsbyjs.org/submit) to win!
+   Each of the Items in your side bar correlates to a MDX file in your `src/pages/` directory. Navigate to a site and try editing the corresponding markdown file. You'll be able to see it update live!
 
-## More information
+## Pages and navigation items
 
-For contest rules and more information, see [the Theme Jam website](https://themejam.gatsbyjs.org).
+- Navigation items are added by modifying the yaml files under `/src/data`. If you don't want a side nav or a top nav, you can modify the corresponding props at `/src/gatsby-theme-patternfly/components/Layout.js`.
+- You can have page specific side navs by editing the `rootPath` values in `/src/data/side-nav.yml`.
+- Pages are created from `*.mdx` files. Add pages to the `/src/pages` directory. If you have a side nav item path of `/docs/api/button`, then you need a corresponding page under `/src/pages/docs/api/button.mdx`.
+
+## Overriding the theme
+
+The main configuration for the site (`/gatsby-config.js`) is provided by and inherited from the theme. You can override the config through your own config. Similarly, you can override the theme components by creating components of the same name under `/src/gatsby-theme-patternfly/components`.
+
+</Text>
