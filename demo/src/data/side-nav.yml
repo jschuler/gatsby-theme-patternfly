@@ -1,0 +1,19 @@
+- rootPath: /documentation
+  nav:
+  - title: About
+    path: /documentation/about
+  - title: Components
+    path: /documentation/components
+    pages:
+    - title: PatternFly
+      path: /documentation/components/patternfly
+    - title: Headings
+      path: /documentation/components/headings
+    - title: Body text
+      path: /documentation/components/body
+    - title: Code
+      path: /documentation/components/code
+    - title: Images
+      path: /documentation/components/images
+    - title: iFrames
+      path: /documentation/components/iframes
