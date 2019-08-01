@@ -31,7 +31,7 @@ const defaultSideNav = [
     nav: [
       {
         title: 'Direct link',
-        path: '/direct/link'
+        path: '/api/direct/link'
       }
     ]
   }
@@ -40,11 +40,13 @@ const defaultSideNav = [
 const defaultTopNav = [
   {
     title: 'Documentation',
+    rootPath: '/documentation',
     path: '/documentation/about'
   },
   {
-    title: 'Community',
-    path: '/community/about'
+    title: 'Api',
+    rootPath: '/api',
+    path: '/api/button'
   }
 ];
 

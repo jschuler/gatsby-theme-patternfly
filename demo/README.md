@@ -23,7 +23,11 @@ This project is a [Gatsby theme](https://www.gatsbyjs.org/docs/themes/what-are-g
   ```
   const topNav = [
     {
+      // The text displayed on the item
       title: 'Documentation',
+      // The root path that enables/activates the item
+      rootPath: '/documentation',
+      // The page that is actually linked to when the item is clicked
       path: '/documentation/about'
     }
   ];
@@ -34,7 +38,9 @@ This project is a [Gatsby theme](https://www.gatsbyjs.org/docs/themes/what-are-g
       rootPath: '/',
       nav: [
         {
+          // The text displayed on the item
           title: 'Direct link',
+          // The page that is linked to
           path: '/direct/link'
         },
         {

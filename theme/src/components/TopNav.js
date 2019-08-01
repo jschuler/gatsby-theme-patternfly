@@ -21,7 +21,7 @@ const TopNav = ({ topNav }) => (
 
       const renderTopNav = () =>
         navItems.map(item => (
-          <NavItem key={item.path} itemId={item.path} isActive={isActiveTest(item.path)}>
+          <NavItem key={item.rootPath} itemId={item.rootPath} isActive={isActiveTest(item.rootPath)}>
             <Link to={item.path}>{item.title}</Link>
           </NavItem>
         ));

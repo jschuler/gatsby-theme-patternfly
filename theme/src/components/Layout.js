@@ -31,6 +31,7 @@ const Layout = ({ children }) => {
           }
           topNav {
             title
+            rootPath
             path
           }
         }

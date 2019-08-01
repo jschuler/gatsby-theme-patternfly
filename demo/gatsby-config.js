@@ -7,6 +7,7 @@
 const topNav = [
   {
     title: 'Documentation',
+    rootPath: '/documentation',
     path: '/documentation/about'
   }
 ];
@@ -54,6 +55,7 @@ const sideNav = [
 ];
 
 module.exports = {
+  pathPrefix: `/test`,
   plugins: [
     {
       resolve: 'gatsby-theme-patternfly',
