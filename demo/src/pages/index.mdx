@@ -23,6 +23,35 @@ This project is a [Gatsby theme](https://www.gatsbyjs.org/docs/themes/what-are-g
 
 1. **Edit gatsby-config.js**
   ```
+  const topNav = [
+    {
+      title: 'Documentation',
+      path: '/documentation/about'
+    }
+  ];
+  
+  const sideNav = [
+    {
+      // shows this side nav on the home page
+      rootPath: '/',
+      nav: [
+        {
+          title: 'Direct link',
+          path: '/direct/link'
+        },
+        {
+          title: 'Expandable link',
+          pages: [
+            {
+              title: 'Expandable link',
+              path: '/expandable/link'
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
   module.exports = {
     // add plugin gatsby-theme-patternfly
     plugins: [
@@ -34,34 +63,9 @@ This project is a [Gatsby theme](https://www.gatsbyjs.org/docs/themes/what-are-g
           // enable or disable the side navs (default true)
           useSideNav: true,
           // one or more top navigation definitions
-          topNav: [
-            {
-              title: 'Documentation',
-              path: '/documentation/about'
-            }
-          ],
+          topNav: topNav,
           // one or more side navigation definitions
-          sideNav: [
-            {
-              // shows this side nav on the home page
-              rootPath: '/',
-              nav: [
-                {
-                  title: 'Direct link',
-                  path: '/direct/link'
-                },
-                {
-                  title: 'Expandable link',
-                  pages: [
-                    {
-                      title: 'Expandable link',
-                      path: '/expandable/link'
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          sideNav: sideNav
         }
       }
     ]
