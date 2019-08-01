@@ -8,13 +8,42 @@ import Header from './Header';
 import SkipToContent from './SkipToContent';
 import MDXProvider from './MDXProvider';
 import PropTypes from 'prop-types';
+import { graphql, useStaticQuery } from 'gatsby';
 
-const Layout = ({ children, useTopNav, useSideNav, mainContainerId = 'main-content' }) => {
+const Layout = ({ children }) => {
+  const data = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          useTopNav
+          useSideNav
+          mainContainerId
+          sideNav {
+            rootPath
+            nav {
+              title
+              path
+              pages {
+                path
+                title
+              }
+            }
+          }
+          topNav {
+            title
+            path
+          }
+        }
+      }
+    }
+  `);
+  const { useTopNav, useSideNav, mainContainerId, topNav, sideNav } = data.site.siteMetadata;
+
   return (
     <Page
       isManagedSidebar
-      header={<Header useTopNav={useTopNav} />}
-      sidebar={useSideNav ? <SideNav useTopNav={useTopNav} /> : null}
+      header={<Header useTopNav={useTopNav} topNav={topNav} />}
+      sidebar={useSideNav ? <SideNav sideNav={sideNav} /> : null}
       skipToContent={<SkipToContent mainContainerId={mainContainerId} />}
       mainContainerId={mainContainerId}
       // breadcrumb={<Breadcrumb />}
@@ -26,10 +55,7 @@ const Layout = ({ children, useTopNav, useSideNav, mainContainerId = 'main-conte
 };
 
 Layout.propTypes = {
-  children: PropTypes.node,
-  useTopNav: PropTypes.bool,
-  useSideNav: PropTypes.bool,
-  mainContainerId: PropTypes.string
+  children: PropTypes.node.isRequired
 };
 
 export default Layout;

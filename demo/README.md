@@ -1,97 +1,93 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's hello-world starter
-</h1>
+# Getting started
 
-Kick off your project with this hello-world boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+This project is a [Gatsby theme](https://www.gatsbyjs.org/docs/themes/what-are-gatsby-themes/) that incorporates the [PatternFly](https://www.patternfly.org/v4/) design system. Using the theme makes it easy to create a gatsby site that is responsive and accessible.
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+## First steps
 
-## 🚀 Quick start
+1. **Create your site** – use the gatsby CLI to bootstrap your site
 
-1.  **Create a Gatsby site.**
+  ```sh
+  gatsby new my-patternfly-site
+  ```
 
-    Use the Gatsby CLI to create a new site, specifying the hello-world starter.
+1. **Add the PatternFly theme**
+  ```
+  yarn add gatsby-theme-patternfly
+  ```
+  or
+  ```
+  npm install gatsby-theme-patternfly
+  ```
 
-    ```sh
-    # create a new Gatsby site using the hello-world starter
-    gatsby new my-hello-world-starter https://github.com/gatsbyjs/gatsby-starter-hello-world
-    ```
+1. **Edit gatsby-config.js**
+  ```
+  const topNav = [
+    {
+      title: 'Documentation',
+      path: '/documentation/about'
+    }
+  ];
+  
+  const sideNav = [
+    {
+      // shows this side nav on the home page
+      rootPath: '/',
+      nav: [
+        {
+          title: 'Direct link',
+          path: '/direct/link'
+        },
+        {
+          title: 'Expandable link',
+          pages: [
+            {
+              title: 'Expandable link',
+              path: '/expandable/link'
+            }
+          ]
+        }
+      ]
+    }
+  ];
 
-1.  **Start developing.**
+  module.exports = {
+    // add plugin gatsby-theme-patternfly
+    plugins: [
+      {
+        resolve: 'gatsby-theme-patternfly',
+        options: {
+          // enable or disable the top nav (default true)
+          useTopNav: true,
+          // enable or disable the side navs (default true)
+          useSideNav: true,
+          // one or more top navigation definitions
+          topNav: topNav,
+          // one or more side navigation definitions
+          sideNav: sideNav
+        }
+      }
+    ]
+  }
+  ```
 
-    Navigate into your new site’s directory and start it up.
+1. **Create corresponding mdx files that match the path given in the gatsby-config**
 
-    ```sh
-    cd my-hello-world-starter/
-    gatsby develop
-    ```
+  For example, for the path `/direct/link` in the config, create the file `src/pages/direct/link.mdx`.
 
-1.  **Open the source code and start editing!**
+1. **Start developing** – navigate into your directory with `cd my-patternfly-site`.
 
-    Your site is now running at `http://localhost:8000`!
+  Start it up with `gatsby develop`
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
+1. **Make some changes!** – open [localhost:8000](//localhost:8000) in your browser to see your site running.
 
-    Open the `my-hello-world-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+   Each of the Items in your side bar correlates to a MDX file in your `src/pages/` directory. Navigate to a site and try editing the corresponding markdown file. You'll be able to see it update live!
 
-## 🧐 What's inside?
+## Pages and navigation items
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
+- Navigation items are added by modifying the gatsby-theme-patternfly plugin in the gatsby-config.js file. **Restart the development server after modifications to see the changes.** If you don't want side navs or a top nav, you can modify the `useTopNav` and `useSideNav` configuration for the plugin .
+- You can have page specific side navs by editing the `rootPath` values in the plugin config.
+- Pages are created from `*.mdx` files. Add pages to the `/src/pages` directory. If you have a side nav item path of `/docs/api/button`, then you need a corresponding page under `/src/pages/docs/api/button.mdx`.
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
+## Overriding the theme
 
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
-
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
-
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
-
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
-
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
-
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
-
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
-
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
-
-9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
-
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
-
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
-
-12. **`README.md`**: A text file containing useful reference information about your project.
-
-## 🎓 Learning Gatsby
-
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
-
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
-
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
-
-## 💫 Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-hello-world)
-
-<!-- AUTO-GENERATED-CONTENT:END -->
+The main configuration for the site (`/gatsby-config.js`) is provided by and inherited from the theme. You can override the config through your own config. Similarly, you can override the theme components by creating components of the same name under `/src/gatsby-theme-patternfly/components`.

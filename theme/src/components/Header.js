@@ -9,10 +9,10 @@ import TopNav from './TopNav';
 import Logo from './Logo';
 import PropTypes from 'prop-types';
 
-const Header = ({ useTopNav }) => {
+const Header = ({ useTopNav, topNav }) => {
   return (
     <PageHeader
-      topNav={useTopNav ? <TopNav /> : null}
+      topNav={useTopNav ? <TopNav topNav={topNav} /> : null}
       logo={<Link to="/"><Logo /></Link>}
       logoComponent='div'
       toolbar={<Toolbar />}
@@ -23,7 +23,8 @@ const Header = ({ useTopNav }) => {
 };
 
 Header.propTypes = {
-  useTopNav: PropTypes.bool
+  useTopNav: PropTypes.bool,
+  topNav: PropTypes.any
 };
 
 export default Header;
