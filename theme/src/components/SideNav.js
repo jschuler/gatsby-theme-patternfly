@@ -10,24 +10,41 @@ import {
 import { Location } from '@reach/router';
 import PropTypes from 'prop-types';
 
-const SideNavWithData = ({ data }) => (
+const SideNav = ({ sideNav }) => (
   <Location>
     {({ location }) => {
-      const currentPath = location.pathname;
-      const allNavs = data.allSideNavYaml.edges.map(({ node }) => node);
-      const matchingNav = allNavs.filter(nav => currentPath.startsWith(nav.rootPath));
-
-      if (matchingNav.length === 0) {
-        return;
-      }
-
-      const navItems = matchingNav[0].nav;
-
       const normalizePath = path => {
         let normalizedPath = path.endsWith('/') ? path : `${path}/`;
         normalizedPath = normalizedPath.startsWith('/') ? normalizedPath : `/${path}`;
         return normalizedPath;
       };
+      const currentPath = normalizePath(location.pathname);
+      const allNavs = sideNav;
+      const matchingNav = allNavs.filter(navContainer => {
+        // search the container if it includes the current path
+        // if it does then this side nav is a match for the current page
+        if (currentPath.startsWith(navContainer.rootPath)) {
+          return true;
+        }
+        for (let nav of navContainer.nav) {
+          if (nav.path && normalizePath(nav.path) === currentPath) {
+            return true;
+          }
+          if (nav.pages) {
+            for (let page of nav.pages) {
+              if (normalizePath(page.path) === currentPath) {
+                return true;
+              }
+            }
+          }
+        }
+        return false;
+      });
+      if (matchingNav.length === 0) {
+        return;
+      }
+
+      const navItems = matchingNav[0].nav;
 
       const isActiveTest = path => {
         const pathWithSlash = normalizePath(path);
@@ -35,9 +52,13 @@ const SideNavWithData = ({ data }) => (
         return currentPathWithSlash.endsWith(pathWithSlash);
       };
 
-      const isActiveTestGroup = path => {
-        const pathWithSlash = normalizePath(path);
-        return currentPath.indexOf(pathWithSlash) > -1;
+      const isActiveTestGroup = pages => {
+        for (let page of pages) {
+          if (isActiveTest(page.path)) {
+            return true;
+          }
+        }
+        return false;
       };
 
       // expandable nav groups
@@ -55,8 +76,8 @@ const SideNavWithData = ({ data }) => (
               title={item.title}
               groupId={item.title}
               key={item.title}
-              isActive={isActiveTestGroup(item.path)}
-              isExpanded={isActiveTestGroup(item.path)}
+              isActive={isActiveTestGroup(item.pages)}
+              isExpanded={isActiveTestGroup(item.pages)}
             >
               {renderNavItems(item.title, item.pages)}
             </NavExpandable>
@@ -85,35 +106,35 @@ const SideNavWithData = ({ data }) => (
   </Location>
 );
 
-SideNavWithData.propTypes = {
-  data: PropTypes.any
+SideNav.propTypes = {
+  sideNav: PropTypes.any
 };
 
-const SideNav = () => (
-  <StaticQuery
-    query={graphql`
-      query SideNavQuery {
-        allSideNavYaml {
-          edges {
-            node {
-              rootPath
-              nav {
-                title
-                path
-                pages {
-                  path
-                  title
-                }
-              }
-            }
-          }
-        }
-      }
-    `}
-    render={data => (
-      <SideNavWithData data={data} />
-    )}
-  />
-);
+// const SideNav = () => (
+//   <StaticQuery
+//     query={graphql`
+//       query SideNavQuery {
+//         allSideNavYaml {
+//           edges {
+//             node {
+              // rootPath
+              // nav {
+              //   title
+              //   path
+              //   pages {
+              //     path
+              //     title
+              //   }
+              // }
+//             }
+//           }
+//         }
+//       }
+//     `}
+//     render={data => (
+//       <SideNavWithData data={data} />
+//     )}
+//   />
+// );
 
 export default SideNav;

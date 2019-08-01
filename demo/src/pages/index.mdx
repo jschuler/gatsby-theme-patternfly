@@ -25,47 +25,52 @@ This project is a [Gatsby theme](https://www.gatsbyjs.org/docs/themes/what-are-g
   ```
   module.exports = {
     // add plugin gatsby-theme-patternfly
-    plugins: ["gatsby-theme-patternfly"],
+    plugins: [
+      {
+        resolve: 'gatsby-theme-patternfly',
+        options: {
+          // enable or disable the top nav (default true)
+          useTopNav: true,
+          // enable or disable the side navs (default true)
+          useSideNav: true,
+          // one or more top navigation definitions
+          topNav: [
+            {
+              title: 'Documentation',
+              path: '/documentation/about'
+            }
+          ],
+          // one or more side navigation definitions
+          sideNav: [
+            {
+              // shows this side nav on the home page
+              rootPath: '/',
+              nav: [
+                {
+                  title: 'Direct link',
+                  path: '/direct/link'
+                },
+                {
+                  title: 'Expandable link',
+                  pages: [
+                    {
+                      title: 'Expandable link',
+                      path: '/expandable/link'
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
   }
   ```
 
-1. **Add navigation yaml files**
-  ```
-  cd src/data # create the data directory if not already there
-  ```
-  - Create a side-nav.yml file under `src/data`. Example contents:
-  ```
-    - rootPath: /
-      nav:
-      - title: About
-        path: /about
-      - title: Components
-        path: /components
-        pages:
-        - title: Body
-          path: /components/body
-        - title: Headings
-          path: /components/headings
+1. **Create corresponding mdx files that match the path given in the gatsby-config**
 
-    - rootPath: /contributions
-      nav:
-      - title: How to contribute
-        path: /contributions/how-to-contribute
-      - title: Community
-        path: /contributions/community
-  ```
-  The rootPath ensures that the side nav only appears on the relevant page
-
-  - Create a top-nav.yml file under `src/data`. Example contents:
-  ```
-    - title: Contributions
-      path: /contributions/how-to-contribute
-  ```
-  This creates a new top nav entry for Contributions
-
-1. **Create corresponding mdx files that match the path given in the yaml files**
-
-  For example, for the path `/components/body` in the yaml file, create the file `src/pages/components/body.mdx`.
+  For example, for the path `/direct/link` in the config, create the file `src/pages/direct/link.mdx`.
 
 1. **Start developing** – navigate into your directory with `cd my-patternfly-site`.
 
@@ -77,8 +82,8 @@ This project is a [Gatsby theme](https://www.gatsbyjs.org/docs/themes/what-are-g
 
 ## Pages and navigation items
 
-- Navigation items are added by modifying the yaml files under `/src/data`. If you don't want a side nav or a top nav, you can modify the corresponding props at `/src/gatsby-theme-patternfly/components/Layout.js`.
-- You can have page specific side navs by editing the `rootPath` values in `/src/data/side-nav.yml`.
+- Navigation items are added by modifying the gatsby-theme-patternfly plugin in the gatsby-config.js file. **Restart the development server after modifications to see the changes.** If you don't want side navs or a top nav, you can modify the `useTopNav` and `useSideNav` configuration for the plugin .
+- You can have page specific side navs by editing the `rootPath` values in the plugin config.
 - Pages are created from `*.mdx` files. Add pages to the `/src/pages` directory. If you have a side nav item path of `/docs/api/button`, then you need a corresponding page under `/src/pages/docs/api/button.mdx`.
 
 ## Overriding the theme

@@ -2,7 +2,7 @@ import React from "react";
 import {
   Avatar
 } from "@patternfly/react-core";
-import imgAvatar from '../images/imgAvatar.svg';
+import imgAvatar from '../../images/imgAvatar.svg';
 
 const HeaderAvatar = () => {
   return (

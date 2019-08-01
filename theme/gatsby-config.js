@@ -1,21 +1,70 @@
 const path = require('path');
 const remarkSlug = require('remark-slug');
 
-module.exports = () => ({
+const defaultSideNav = [
+  {
+    // shows this side bar on the home page
+    rootPath: '/',
+    nav: [
+      {
+        title: 'Direct link',
+        path: '/direct/link'
+      },
+      {
+        title: 'Expandable link',
+        pages: [
+          {
+            title: 'Expandable one',
+            path: '/expandable/one'
+          },
+          {
+            title: 'Expandable two',
+            path: '/expandable/two'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    // shows this side bar on the /api page
+    rootPath: '/api',
+    nav: [
+      {
+        title: 'Direct link',
+        path: '/direct/link'
+      }
+    ]
+  }
+];
+
+const defaultTopNav = [
+  {
+    title: 'Documentation',
+    path: '/documentation/about'
+  },
+  {
+    title: 'Community',
+    path: '/community/about'
+  }
+];
+
+module.exports = ({ 
+  useTopNav = true, 
+  useSideNav = true, 
+  mainContainerId = 'main-content', 
+  sideNav = defaultSideNav, 
+  topNav = defaultTopNav 
+}) => ({
   siteMetadata: {
-    title: 'Gatsby Theme Jam Example Submission'
+    useTopNav,
+    useSideNav,
+    mainContainerId,
+    sideNav,
+    topNav
   },
   plugins: [
     'gatsby-plugin-sharp',
-    'gatsby-transformer-yaml',
     'gatsby-plugin-catch-links',
-    {
-      resolve: 'gatsby-source-filesystem',
-      name: 'nav',
-      options: {
-        path: path.resolve(`./src/data`)
-      }
-    },
     {
       resolve: 'gatsby-source-filesystem',
       name: 'images',

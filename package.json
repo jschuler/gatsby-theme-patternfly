@@ -2,7 +2,8 @@
   "private": true,
   "workspaces": [
     "theme",
-    "demo"
+    "demo",
+    "test-patternfly-theme"
   ],
   "scripts": {
     "lint": "eslint **/src/**/*.js"
