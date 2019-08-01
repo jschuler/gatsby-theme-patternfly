@@ -1,5 +1,5 @@
 import React from 'react';
-import { StaticQuery, graphql, Link } from 'gatsby';
+import { Link } from 'gatsby';
 import {
   PageSidebar,
   Nav,
@@ -109,32 +109,5 @@ const SideNav = ({ sideNav }) => (
 SideNav.propTypes = {
   sideNav: PropTypes.any
 };
-
-// const SideNav = () => (
-//   <StaticQuery
-//     query={graphql`
-//       query SideNavQuery {
-//         allSideNavYaml {
-//           edges {
-//             node {
-              // rootPath
-              // nav {
-              //   title
-              //   path
-              //   pages {
-              //     path
-              //     title
-              //   }
-              // }
-//             }
-//           }
-//         }
-//       }
-//     `}
-//     render={data => (
-//       <SideNavWithData data={data} />
-//     )}
-//   />
-// );
 
 export default SideNav;

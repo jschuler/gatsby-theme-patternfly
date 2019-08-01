@@ -1,5 +1,5 @@
 import React from 'react';
-import { StaticQuery, graphql, Link } from 'gatsby';
+import { Link } from 'gatsby';
 import {
   Nav,
   NavList,
@@ -42,25 +42,5 @@ const TopNav = ({ topNav }) => (
 TopNav.propTypes = {
   topNav: PropTypes.any
 };
-
-// const TopNav = () => (
-//   <StaticQuery
-//     query={graphql`
-//       query TopNavQuery {
-//         allTopNavYaml {
-//           edges {
-//             node {
-//               title
-//               path
-//             }
-//           }
-//         }
-//       }
-//     `}
-//     render={data => (
-//       <TopNavWithData data={data} />
-//     )}
-//   />
-// );
 
 export default TopNav;
