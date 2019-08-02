@@ -19,32 +19,6 @@ const SideNav = ({ sideNav }) => (
         return normalizedPath;
       };
       const currentPath = normalizePath(location.pathname);
-      const allNavs = sideNav;
-      const matchingNav = allNavs.filter(navContainer => {
-        // search the container if it includes the current path
-        // if it does then this side nav is a match for the current page
-        if (currentPath.startsWith(navContainer.rootPath)) {
-          return true;
-        }
-        for (let nav of navContainer.nav) {
-          if (nav.path && normalizePath(nav.path) === currentPath) {
-            return true;
-          }
-          if (nav.pages) {
-            for (let page of nav.pages) {
-              if (normalizePath(page.path) === currentPath) {
-                return true;
-              }
-            }
-          }
-        }
-        return false;
-      });
-      if (matchingNav.length === 0) {
-        return;
-      }
-
-      const navItems = matchingNav[0].nav;
 
       const isActiveTest = path => {
         const pathWithSlash = normalizePath(path);
@@ -63,7 +37,7 @@ const SideNav = ({ sideNav }) => (
 
       // expandable nav groups
       const renderNavGroups = () =>
-        navItems.map(item => {
+        sideNav.map(item => {
           if (!item.pages) {
             return (
               <NavItem itemId={item.path} key={item.path} isActive={isActiveTest(item.path)}>

@@ -3,6 +3,8 @@ import Highlight, { defaultProps } from 'prism-react-renderer';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
+import theme from './CodeBlockTheme';
+import patternFlyComponents from './MDXProvider/patternFlyComponents';
 
 const codeBlockStyle = css`
   margin: 15px 0;
@@ -27,7 +29,7 @@ const CodeBlock = ({ children, className = '', live }) => {
   if (live === 'true') {
     return (
       <div css={liveCodeBlockStyle}>
-        <LiveProvider code={children}>
+        <LiveProvider code={children} scope={{ ...patternFlyComponents }}>
           <LivePreview />
           <LiveEditor />
           <LiveError />
@@ -36,7 +38,7 @@ const CodeBlock = ({ children, className = '', live }) => {
     );
   }
   return (
-    <Highlight {...defaultProps} code={children} language={language}>
+    <Highlight {...defaultProps} code={children} language={language} theme={theme}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={className} css={codeBlockStyle} style={{ ...style }}>
           {removeTrailingEmptyLine(tokens).map((line, i) => (

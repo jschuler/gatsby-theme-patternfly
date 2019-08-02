@@ -5,11 +5,14 @@ import {
   PageSectionVariants
 } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
+import Text from '../components/Markdown/Text';
 
 const Default = ({ children }) => (
   <Layout>
     <PageSection variant={PageSectionVariants.light}>
-      {children}
+      <Text>
+        {children}
+      </Text>
     </PageSection>
   </Layout>
 );
