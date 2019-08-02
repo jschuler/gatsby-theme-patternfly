@@ -1,11 +1,11 @@
 import React from 'react';
-import { TextContent } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
+import '../../styles/content.css';
 
 const Text = ({ children, ...props }) => (
-  <TextContent {...props}>
+  <div className="theme-pf-c-content" {...props}>
     {children}
-  </TextContent>
+  </div>
 );
 
 Text.propTypes = {

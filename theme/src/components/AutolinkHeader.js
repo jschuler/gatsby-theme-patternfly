@@ -51,7 +51,7 @@ const AutolinkHeader = ({ children, headingLevel, size, ...props }) => {
   const slug = slugger(string);
 
   return (
-    <Title id={slug} headingLevel={headingLevel} size={size} css={hoverAnchor} {...props}>
+    <Title id={slug} headingLevel={headingLevel} size={size} css={hoverAnchor} data-pf-content {...props}>
       <Anchor id={slug} string={string} />
       {children}
     </Title>
